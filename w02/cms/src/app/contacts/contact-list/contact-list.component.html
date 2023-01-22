@@ -6,16 +6,16 @@
                 <button class="btn btn-success pull-right">New Contact</button>
             </div>
             <div class="panel-body">
-                <a href="#" class="list-group-item clearfix" *ngFor="let con of contacts">
+                <!-- <a href="#" class="list-group-item clearfix" *ngFor="let con of contacts">
                     <div class="pull-left">
                         <h4 href="" class="list-group-item-heading">{{con.name}}</h4>
-                        <!-- <p class="list-group-item-text">Description</p> -->
+                        <!- - <p class="list-group-item-text">Description</p> - ->
                     </div>
                     <span class="pull-right">
                         <img [src]="con.imageUrl" alt="{{con.name}} image" class="img-responsive" style="max-height: 50px;">
                     </span>
-                </a>
-                <!-- <cms-contact-item></cms-contact-item> -->
+                </a> -->
+                <cms-contact-item *ngFor="let c of contacts" [contact]="c" (click)="onSelected(c)"></cms-contact-item>
             </div>
         </div>
     </div>
