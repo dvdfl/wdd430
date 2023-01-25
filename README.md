@@ -67,13 +67,24 @@ Marker reference (Local reference)
 `<p *ngIf="expressionOrProperty; else noMessage">message</p>`
 `<ng-template #noMessage>alternate message</ng-template>`
 
+Local Reference in Component class (TypeScript)
+`<inpu type="text" #messageSubject >`
+`  @ViewChild('messageSubject', {static: true}) subject : ElementRef; `
+
+
 *Attribute directives don't add or remove, but change element they were placed on (no stast prefix)
 
-ngStyle directive is attribute binding type, expects key:value object (should be used with backets beacuse it binds to a propery: style)
+ngStyle directive is attribute binding type, expects key:value object (should be used with backets beacuse it binds to a propery: style)\
 `<p [ngStyle]="{'background-color': method()}">` or `<p [ngStyle]="{ backgroundColor: method()}">`
 
-ngClass directive 
+ngClass directive \
 `<p [ngClass]="className: ifExpressionistrue">`
 
-ngFor (prefixed with the *)
+ngFor (prefixed with the *)\
 `<ul><li *ngFor="let i of listProperty"></li></ul>`
+
+Share Component property with @Output decorator \
+`@Input('message') messageText : string;`
+
+Event Emmiter to share value to notify parent component of a change: \
+`@Output() addMessageEvent = new EventEmitter<string>(); `
