@@ -58,16 +58,16 @@ Model Binding for textbox input
 
 ##@ Directives
 
-Components are directives with templates
+Components are directives with templates \
 
-Structural directives, those that modify the DOM object, begin with *
+Structural directives, those that modify the DOM object, begin with * \
 `<p *ngIf="expressionOrProperty"></p>`
 
-Marker reference (Local reference)
+Marker reference (Local reference) \
 `<p *ngIf="expressionOrProperty; else noMessage">message</p>`
 `<ng-template #noMessage>alternate message</ng-template>`
 
-Local Reference in Component class (TypeScript)
+Local Reference in Component class (TypeScript) \
 `<inpu type="text" #messageSubject >`
 `  @ViewChild('messageSubject', {static: true}) subject : ElementRef; `
 
@@ -83,8 +83,22 @@ ngClass directive \
 ngFor (prefixed with the *)\
 `<ul><li *ngFor="let i of listProperty"></li></ul>`
 
+## Week 3
+
+### Sharing data between child and parent directives and components
+
 Share Component property with @Output decorator \
-`@Input('message') messageText : string;`
+`@Input('message') messageText : string;` \
+on parent component: \
+`<app-component [message]="valueOrExpression">`
 
 Event Emmiter to share value to notify parent component of a change: \
-`@Output() addMessageEvent = new EventEmitter<string>(); `
+`@Output() sendMessageEvent = new EventEmitter<string>(); ` \
+Child component method: \
+```
+  onSendMessage(){
+      this.addMessageEvent.emit(this.messageText.nativeElement.value);
+  }
+```
+On parent Component \
+`<app-component (sendMessageEvent)="parentMethod($event)">`
