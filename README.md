@@ -94,7 +94,7 @@ on parent component: \
 
 Event Emmiter to share value to notify parent component of a change: \
 `@Output() sendMessageEvent = new EventEmitter<string>(); ` \
-Child component method: \
+Child component method:
 ```
   onSendMessage(){
       this.addMessageEvent.emit(this.messageText.nativeElement.value);
@@ -102,3 +102,63 @@ Child component method: \
 ```
 On parent Component \
 `<app-component (sendMessageEvent)="parentMethod($event)">`
+
+
+## Week 3
+
+Attribute directive `ngClass` \
+`<li [ngClass]="{ className: index >0 }">`
+
+Attribute directive `ngStyle` \
+`<li [ngStyle]="{ backgroundColor: index>0 ?' black' : 'red'}">`
+
+Custom Attribute directive
+'''
+file name: highlight-directive.ts
+
+@Directive({
+    selector: '[appHighligh]'
+})
+
+export class HighlightDirective {
+    
+    // can be injected
+    constructor (private elementRef: ElementRef, private renderer: Renderer2) implements OnInit {
+
+    }
+    ngOnInit() {
+        // set style of the element
+        this.renderer.setStyle(this.elementRef.nativeElement, 'backbround-color', 'blue')
+    }
+
+    // additionally can listen to events
+    @HostListener('mouseenter') mouseover(eventData: Event) {
+        this.renderer.setStyle(this.elementRef.nativeElement, 'backbround-color', 'green');
+
+        // if HostBinding used
+        this.backgroundColor = 'green';
+    }
+    @HostListener('mouseleave') mousleave(eventData: Event) {
+        this.renderer.setStyle(this.elementRef.nativeElement, 'backbround-color', 'yellow')
+        
+        // if HostBinding used
+        this.backgroundColor = 'yellow'; 
+        // if color are properies 
+        this.backgroundColor = this.highlightColor; 
+    }
+
+
+    // properties can be bound directly like DOM property with HostBinding
+    @HostBinding('stye.backgroundColor') backgroundColor : string = 'red';
+
+    // Colors can be properties, alias can be used but the value will be from attraibute [appHighligh]="'red'"
+    @Input() defaultColor : string = 'transparent';
+    @Input() highlightColor : string = 'blue';
+    
+}
+
+// Directive properties can be bound directly as attributes
+<p appHighligh [defaultColor]="'red'" [highlightColor]="'blue'">
+or
+<p appHighligh defaultColor="red" highlightColor="blue">
+'''
