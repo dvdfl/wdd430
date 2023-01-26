@@ -112,7 +112,7 @@ Attribute directive `ngClass` \
 Attribute directive `ngStyle` \
 `<li [ngStyle]="{ backgroundColor: index>0 ?' black' : 'red'}">`
 
-Custom Attribute directive
+Custom Attribute directive \
 '''
 file name: highlight-directive.ts
 
@@ -162,3 +162,28 @@ export class HighlightDirective {
 or
 <p appHighligh defaultColor="red" highlightColor="blue">
 '''
+
+Custom Structural directive
+```
+@Directive({
+    selector: '[appUnless]'
+})
+export class UnlessDirective {
+    //name needs to match property name
+    @Input set appUnless(condition :boolean)
+    {
+        if(!condition){
+            this.viewContainerRef.createEmbeddedVierw(this.templateRef);
+        } else {
+            this.viewContainerRef.clear()
+        }
+    }
+
+    // ViewContainerRef is the place where the template will be rendered
+    constructor(private templateRef: TemplateRef<any>, private viewContainerRef: ViewContainerRef){
+
+    }
+}
+//usage
+<div *appUnless="!onlyOdd"></div>
+```
