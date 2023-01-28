@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'cms-documents-item',
-  templateUrl: './documents-item.component.html',
-  styleUrls: ['./documents-item.component.css']
+  selector: 'cms-document-item',
+  templateUrl: './document-item.component.html',
+  styleUrls: ['./document-item.component.css']
 })
-export class DocumentsItemComponent {
+export class DocumentItemComponent {
 
 }
