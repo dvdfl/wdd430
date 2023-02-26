@@ -15,6 +15,7 @@ export class ContactEditComponent implements OnInit {
   contact: Contact;
   groupContacts: Contact[] = [];
   editMode: boolean =false;
+  invalidDnd: boolean = false;
 
   constructor(
     private contactService: ContactService,
@@ -48,6 +49,7 @@ export class ContactEditComponent implements OnInit {
   onCancel(){
     this.router.navigate(["/contacts"]);
   }
+
   onSubmit(form:NgForm){
     console.log("submitted");
     const value = form.value;
@@ -63,4 +65,42 @@ export class ContactEditComponent implements OnInit {
 
     this.router.navigate(["/contacts"]);
   }
+  
+  addToGroup($event: any){
+    // console.log($event);
+    const selectedContact: Contact = $event.dragData;
+    const invalidGroupContact = this.isInvalidContact(selectedContact);
+    if (invalidGroupContact){
+      this.invalidDnd = true
+      return;
+    }
+    this.invalidDnd = false;
+    this.groupContacts.push(selectedContact);
+  }
+
+  onRemoveItem(index: number) {
+    // console.log(`removing ${index}`)
+    if (index < 0 || index >= this.groupContacts.length) {
+      return;
+    }
+    this.groupContacts.splice(index, 1);
+    this.invalidDnd = false;
+  }
+
+  isInvalidContact(newContact: Contact) {
+     if (!newContact) {// newContact has no value
+       return true;
+     }
+     if (this.contact && newContact.id === this.contact.id) {
+        return true;
+     }
+     for (let i = 0; i < this.groupContacts.length; i++){
+        if (newContact.id === this.groupContacts[i].id) {
+          return true;
+        }
+     }
+     return false;
+  }
+
+
 }

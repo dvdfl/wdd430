@@ -15,7 +15,7 @@
                         <img [src]="con.imageUrl" alt="{{con.name}} image" class="img-responsive" style="max-height: 50px;">
                     </span>
                 </a> -->
-                <cms-contact-item *ngFor="let c of contacts" [contact]="c"></cms-contact-item>
+                <cms-contact-item *ngFor="let c of contacts" [contact]="c" dnd-draggable dragEnabled="true" [dragData]="c" [dropZones]="['contactGroup']"></cms-contact-item>
             </div>
         </div>
     </div>
