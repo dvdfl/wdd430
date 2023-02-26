@@ -36,7 +36,7 @@ export class DocumentService {
       if (newDocument == undefined || newDocument == null) {
           return;
       }
-
+      console.log("adding document..")
       this.maxDocumentId++;
       newDocument.id = String(this.maxDocumentId);
       this.documents.push(newDocument)
@@ -51,9 +51,12 @@ export class DocumentService {
     if (pos < 0){
       return;
     }
-
+    // console.log("updating document.. [old-new]")
     newDocument.id = originalDocument.id;
+    // console.log(originalDocument)
+    // console.log(newDocument)
     this.documents[pos] = newDocument;
+    
     this.documentListChangedEvent.next(this.getDocuments())
   }
 
