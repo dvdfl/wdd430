@@ -25,8 +25,8 @@ export class ContactService {
   getContact(id: string) : Contact{
     for (const contact of this.contacts) {
       if(contact.id == id) {
-        console.log("found!")
-         return contact;
+        //console.log("found!")
+        return contact;
       }
     }
     return null;
