@@ -187,3 +187,13 @@ export class UnlessDirective {
 //usage
 <div *appUnless="!onlyOdd"></div>
 ```
+
+## Week 6
+### Routing
+
+HTML links use `routeLink` attribute and `routerLinkActiveOptions` sets the CSS class name to the element when route matches, and optional `routerLinkActiveOptions` prevent applying to subroutes
+```
+<li routerLinkActive="cssClassActive" [routerLinkActiveOptions]="{ exact: true }">
+  <a routeLink="/routename">Link name</a>
+</li>
+```
