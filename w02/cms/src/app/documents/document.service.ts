@@ -10,7 +10,7 @@ const apiUrl = "https://contactsproject-b2023-default-rtdb.firebaseio.com/docume
 })
 
 export class DocumentService {
-  documents : Document[] = [];
+  private documents : Document[] = [];
   documentSelectedEvent = new EventEmitter<Document>();
   //documentChangedEvent = new EventEmitter<Document[]>();
   documentListChangedEvent = new Subject<Document[]>();
