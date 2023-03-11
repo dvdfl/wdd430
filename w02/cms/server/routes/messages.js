@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET all messages. */
 router.get('/', function(req, res, next) {
-  res.send("get");
+  res.send("Messages GET enpoint working!");
 });
 
 module.exports = router;

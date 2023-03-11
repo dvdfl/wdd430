@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET all contacts. */
 router.get('/', function(req, res, next) {
-  res.send("get");
+  res.send("Contacts GET enpoint working!");
 });
 
 module.exports = router;

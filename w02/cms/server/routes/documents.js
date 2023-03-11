@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET all documents. */
 router.get('/', function(req, res, next) {
-  res.send("get");
+  res.send("Documents GET enpoint working!");
 });
 
 module.exports = router;
