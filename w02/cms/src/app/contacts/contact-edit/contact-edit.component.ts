@@ -31,6 +31,7 @@ export class ContactEditComponent implements OnInit {
         this.editMode = false;
         return;
       }
+      // TODO: fix contacts preloading
       this.originalContact = this.contactService.getContact(contactId);
       if(this.originalContact == null){
         return;

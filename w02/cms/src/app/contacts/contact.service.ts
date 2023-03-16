@@ -3,7 +3,8 @@ import { EventEmitter, Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Contact } from './contact.model';
 import { MOCKCONTACTS } from './MOCKCONTACTS';
-const apiUrl = "https://contactsproject-b2023-default-rtdb.firebaseio.com/contacts.json";
+//const apiUrl = "https://contactsproject-b2023-default-rtdb.firebaseio.com/contacts.json";
+const apiUrl = "http://localhost:3000/contacts/";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ContactService {
   contactListChangedEvent = new Subject<Contact[]>();
   maxContactId: number;
 
-  constructor(private httpCient: HttpClient) {
+  constructor(private httpClient: HttpClient) {
     //this.contacts = MOCKCONTACTS;
     this.contacts = this.getContacts();
     this.maxContactId = this.getMaxId();
@@ -23,20 +24,10 @@ export class ContactService {
 
   getContacts(): Contact[] {
 
-    this.httpCient.get<Contact[]>(apiUrl).subscribe(docs => {
+    this.httpClient.get<Contact[]>(apiUrl).subscribe(docs => {
       //console.log(docs);
       this.contacts = docs;
-      this.maxContactId = this.getMaxId();
-      this.contacts.sort((a, b) => {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
-      this.contactListChangedEvent.next(this.contacts.slice())
+      this.sortAndSend();
     });
 
     return this.contacts.slice();
@@ -52,17 +43,29 @@ export class ContactService {
     return null;
   }
 
-  addContact(newContact: Contact) {
-    if (newContact == undefined || newContact == null) {
+  addContact(contact: Contact) {
+    if (contact == undefined || contact == null) {
       return;
     }
 
-    this.maxContactId++;
-    newContact.id = String(this.maxContactId);
-    this.contacts.push(newContact)
-    //this.contactListChangedEvent.next(this.getContacts())
-    this.storeContacts();
+    // make sure id of the new Document is empty
+    contact.id = '';
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // add to database
+    this.httpClient.post<{ message: string, contact: Contact }>(apiUrl,
+      contact,
+      { headers: headers })
+      .subscribe(
+        (responseData) => {
+          // add new contact to contacts
+          this.contacts.push(responseData.contact);
+          this.sortAndSend();
+        }
+      );
   }
+
   updateContact(originalContact: Contact, newContact: Contact) {
     if (originalContact == null || originalContact == null || originalContact == undefined || originalContact == undefined) {
       return;
@@ -72,11 +75,16 @@ export class ContactService {
     if (pos < 0) {
       return;
     }
-
-    newContact.id = originalContact.id;
-    this.contacts[pos] = newContact;
-    //this.contactListChangedEvent.next(this.getContacts())
-    this.storeContacts();
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // update database
+    this.httpClient.put(apiUrl + originalContact.id,
+      newContact, { headers: headers })
+      .subscribe(
+        (response: Response) => {
+          this.contacts[pos] = newContact;
+          this.sortAndSend();
+        }
+      );
   }
 
   deleteContact(contact: Contact) {
@@ -87,11 +95,15 @@ export class ContactService {
     if (pos < 0) {
       return;
     }
-    this.contacts.splice(pos, 1);
-    //this.contactChangedEvent.emit(this.contacts.slice());
-    //this.contactListChangedEvent.next(this.getContacts());
-    this.storeContacts();
+    this.httpClient.delete(apiUrl + contact.id)
+      .subscribe(
+        (response: Response) => {
+          this.contacts.splice(pos, 1);
+          this.sortAndSend();
+        }
+      );
   }
+  
 
   getMaxId(): number {
     //return this.contacts.sort(d=>d.id)[0];
@@ -105,7 +117,7 @@ export class ContactService {
   }
 
   storeContacts() {
-    this.httpCient.put(apiUrl, JSON.stringify(this.contacts)
+    this.httpClient.put(apiUrl, JSON.stringify(this.contacts)
       , { headers: new HttpHeaders({ "Content-Type": "application/json" }) })
       .subscribe(
         {
@@ -114,4 +126,18 @@ export class ContactService {
         }
       )
   }
+
+  sortAndSend(){
+    this.contacts.sort((a,b)=>{
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+    this.contactListChangedEvent.next(this.contacts.slice())
+  }
+
 }
