@@ -75,6 +75,10 @@ export class ContactService {
     if (pos < 0) {
       return;
     }
+
+    // set the id of the new Contact to the id of the old Contact
+    newContact.id = originalContact.id;
+
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     // update database
     this.httpClient.put(apiUrl + originalContact.id,

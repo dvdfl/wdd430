@@ -74,6 +74,9 @@ export class DocumentService {
     if (pos < 0){
       return;
     }
+    // set the id of the new Document to the id of the old Document
+    newDocument.id = originalDocument.id;
+        
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
     // update database
