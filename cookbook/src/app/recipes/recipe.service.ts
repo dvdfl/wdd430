@@ -55,7 +55,8 @@ export class RecipeService implements OnInit  {
       .subscribe(
         (responseData) => {
           // add new recipe to recipes
-          this.recipes.push(responseData.recipe);
+          //this.recipes.push(responseData.recipe);
+          this.recipes.push(recipe);
           this.sortAndSend();
         }
       );
