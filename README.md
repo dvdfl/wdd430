@@ -197,3 +197,25 @@ HTML links use `routeLink` attribute and `routerLinkActiveOptions` sets the CSS 
   <a routeLink="/routename">Link name</a>
 </li>
 ```
+
+## Week 10
+### NodeJS
+Adding node JS
+
+
+## Week 11
+### MongoDB - Shell commands
+use database or create database
+``` use database '''
+
+list collections
+``` show collections '''
+
+ inserting document - create collection
+``` db.collectionName.inserOne({ id: 1, prop1 : "val1" }) '''
+
+ query data
+``` db.collectionName.find({ id: 1}) '''
+
+ update data
+``` db.collectionName.updateOne({ id: 1 }, { $set : { prop1 : "new val"} }) '''
