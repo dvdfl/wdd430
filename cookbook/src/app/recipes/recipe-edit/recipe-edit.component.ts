@@ -59,6 +59,18 @@ export class RecipeEditComponent {
   addStep(){
     this.steps.push(new Step(this.steps.length + 1,""));
   }
+  onRemoveIngredient(index: number) {
+    if (index < 0 || index >= this.ingredients.length) {
+      return;
+    }
+    this.ingredients.splice(index, 1);
+  }
+  onRemoveStep(index: number) {
+    if (index < 0 || index >= this.steps.length) {
+      return;
+    }
+    this.steps.splice(index, 1);
+  }
   onCancel(){
     this.router.navigate(["/recipes"]);
   }

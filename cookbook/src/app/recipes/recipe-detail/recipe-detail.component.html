@@ -30,6 +30,11 @@
             <span class="fw-bold">Meal Type: </span>
             {{recipe?.meal_type}}
         </p>
+        <p>
+            <a href="" routerLink="./edit" class="btn btn-secondary">Edit</a>
+            &nbsp;
+            <button type="button" (click)="deleteRecipe()" class="btn btn-danger">Delete</button>
+        </p>
     </div>
 </div>
 <a href="" routerLink="/recipes" class="btn btn-secondary">Back To list</a>

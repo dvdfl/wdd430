@@ -19,6 +19,7 @@ export class Recipe {
         this.description = description;
         this.prep_time = prep_time;
         this.total_time = total_time;
+        this.servings = servings;
         this.meal_type = meal_type;
         this.imageUrl = imageUrl;
         this.ingredients = ingredients;

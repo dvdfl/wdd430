@@ -35,7 +35,7 @@
 
     <div class="row">
       <div class="col-sm-12 form-group">
-        <label for="prep_time">Prep_time:</label>
+        <label for="prep_time">Prep time (in minutes):</label>
         <input
           type="text"
           id="prep_time"
@@ -56,7 +56,7 @@
 
     <div class="row">
         <div class="col-sm-12 form-group">
-          <label for="total_time">Total prep time:</label>
+          <label for="total_time">Total prep time (in minutes):</label>
           <input
             type="text"
             id="total_time"
@@ -81,7 +81,7 @@
         <input
           type="text"
           id="servings"
-          class="form-control invalid"
+          class="form-control required"
           size="150"
           max="255"
           name="servings"
@@ -128,7 +128,7 @@
           >
       </div>
     </div>
-
+    <hr>
     <div class="row">
       <div class="form-group">
         <label for="groupList">Ingredients:</label>
@@ -139,44 +139,73 @@
 
           <div *ngFor="let ingredient of ingredients; let i = index" class="row">
             <div class="col-2">
-              <input type="text" id="qty"
+              <input type="text" id="qty-{{i}}"
               class="form-control"
               size="3"
               max="20"
-              name="qty"
-              [ngModel]="ingredient?.qty"
+              name="qty-{{i}}"
+              [(ngModel)]="ingredient.qty"
               placeholder="Qty"
               >
             </div>
             <div class="col-2">
-                <input type="text" id="uom"
+                <input type="text" id="uom-{{i}}"
                 class="form-control"
                 size="3"
                 max="20"
-                name="uom"
-                [ngModel]="ingredient?.uom"
+                name="uom-{{i}}"
+                [(ngModel)]="ingredient.uom"
                 placeholder="Unit"
                 >
               </div>
             <div class="col-6">
-                <input type="text" id="name"
+                <input type="text" id="name-{{i}}"
                 class="form-control"
                 size="3"
                 max="20"
-                name="name"
-                [ngModel]="ingredient?.name"
+                name="name-{{i}}"
+                [(ngModel)]="ingredient.name"
                 placeholder="Ingredient name"
                 >
             </div>
             <div class="col-2">
-                <button class="btn btn-danger" (click)="onRemoveItem(i)">X</button>
+                <button type="button" class="btn btn-danger" (click)="onRemoveIngredient(i)">X</button>
             </div>
           </div>
         </div>
 
       </div>
     </div>
-
+    <hr>
+    <div class="row">
+        <div class="form-group">
+          <label for="groupList">Steps:</label>
+          <p>
+              <button type="button" class="btn btn-secondary" (click)="addStep()">Add Step</button>
+          </p>
+          <div class="row" id="groupList">
+  
+            <div *ngFor="let step of steps; let i = index" class="row">
+            <div class="col-1">{{step.step}}</div>
+              <div class="col-9">
+                
+                  <input type="text" id="description-{{i}}"
+                  class="form-control"
+                  size="3"
+                  max="20"
+                  name="description-{{i}}"
+                  [(ngModel)]="step.description"
+                  placeholder="Step description"
+                  >
+              </div>
+              <div class="col-2">
+                  <button type="button" class="btn btn-danger" (click)="onRemoveStep(i)">X</button>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
     <div class="row alert alert-danger" *ngIf="(name.invalid && name.touched) || (prep_time.invalid && prep_time.touched)">
         The Name and Prep time fields are required.
     </div>

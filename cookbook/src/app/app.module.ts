@@ -30,7 +30,7 @@ import RecipeDetailComponent from './recipes/recipe-detail/recipe-detail.compone
     AppRoutingModule,
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

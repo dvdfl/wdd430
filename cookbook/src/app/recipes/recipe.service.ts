@@ -44,7 +44,7 @@ export class RecipeService implements OnInit  {
     }
 
     // make sure id of the new Document is empty
-    recipe.id = '';
+    recipe.id = (this.getMaxId()+1).toString();
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -78,10 +78,14 @@ export class RecipeService implements OnInit  {
     // update database
     this.httpClient.put(apiUrl + originalRecipe.id,
       newRecipe, { headers: headers })
-      .subscribe(
-        (response: Response) => {
-          this.recipes[pos] = newRecipe;
-          this.sortAndSend();
+      .subscribe({
+          next:(response: Response) => {
+            this.recipes[pos] = newRecipe;
+            this.sortAndSend();
+          },
+          error:  (err)=>{
+            console.log(err);
+          }
         }
       );
   }
@@ -115,4 +119,15 @@ export class RecipeService implements OnInit  {
     });
     this.recipeListChangedEvent.next(this.recipes.slice())
   }
+
+  getMaxId(): number {
+    let maxId = 0
+    for (const recipe of this.recipes) {
+      if (+recipe.id > maxId) {
+        maxId = +recipe.id;
+      }
+    }
+    return maxId;
+  }
+
 }
