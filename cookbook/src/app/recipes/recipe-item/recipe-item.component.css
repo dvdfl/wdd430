@@ -1,0 +1,16 @@
+.recipe-row {
+    border-bottom: 1px solid lightgray;
+    margin-bottom: .5em;
+}
+.prop1 {
+    border-left: 5px solid cornflowerblue;
+    padding-left: 5px;
+}
+.prop2 {
+    border-left: 5px solid green;
+    padding-left: 5px;
+}
+.prop3 {
+    border-left: 5px solid purple;
+    padding-left: 5px;
+}

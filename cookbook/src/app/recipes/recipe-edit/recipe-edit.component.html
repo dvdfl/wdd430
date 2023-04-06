@@ -1,0 +1,194 @@
+<form id="recipe-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="row">
+      <div class="col-sm-12 form-group">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control required"
+          size="120"
+          max="120"
+          name="name"
+          [ngModel]="recipe?.name"
+          #name="ngModel"
+          required=""
+          >
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="description">Description:</label>
+          <input
+            type="text"
+            id="description"
+            class="form-control required"
+            size="120"
+            max="120"
+            name="description"
+            [ngModel]="recipe?.description"
+            #name="ngModel"
+            required=""
+            >
+        </div>
+      </div>
+
+    <div class="row">
+      <div class="col-sm-12 form-group">
+        <label for="prep_time">Prep_time:</label>
+        <input
+          type="text"
+          id="prep_time"
+          class="form-control required"
+          size="120"
+          max="255"
+          name="prep_time"
+          [ngModel]="recipe?.prep_time"
+          #prep_time="ngModel"
+          required
+          pattern="[0-9]+$"
+          >
+      </div>
+    </div>
+    <div class="row alert alert-danger" *ngIf="prep_time.invalid && prep_time.touched">
+      Enter a valid Prep time
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="total_time">Total prep time:</label>
+          <input
+            type="text"
+            id="total_time"
+            class="form-control required"
+            size="120"
+            max="255"
+            name="total_time"
+            [ngModel]="recipe?.total_time"
+            #total_time="ngModel"
+            required
+            pattern="[0-9]+$"
+            >
+        </div>
+      </div>
+      <div class="row alert alert-danger" *ngIf="total_time.invalid && total_time.touched">
+        Enter a valid Total Prep time
+      </div>
+
+    <div class="row">
+      <div class="col-sm-12 form-group">
+        <label for="servings">Servings:</label>
+        <input
+          type="text"
+          id="servings"
+          class="form-control invalid"
+          size="150"
+          max="255"
+          name="servings"
+          [ngModel]="recipe?.servings"
+          #servings="ngModel"
+          pattern="\d*"
+          >
+      </div>
+    </div>
+    <div class="row alert alert-danger" *ngIf="servings.invalid">
+      Enter a valid servings number
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="meal_type">Meal Type:</label>
+          <input
+            type="text"
+            id="meal_type"
+            class="form-control invalid"
+            size="150"
+            name="meal_type"
+            [ngModel]="recipe?.meal_type"
+            #meal_type="ngModel"
+            >
+  
+        </div>
+      </div>
+      <div class="row alert alert-danger" *ngIf="meal_type.invalid">
+        Enter a valid meal type
+      </div>
+
+    <div class="row">
+      <div class="col-sm-12 form-group">
+        <label for="imageUrl">Image URL:</label>
+        <input
+          type="text"
+          id="imageUrl"
+          class="form-control"
+          size="150"
+          max="255"
+          name="imageUrl"
+          [ngModel]="recipe?.imageUrl"
+          >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label for="groupList">Ingredients:</label>
+        <p>
+            <button type="button" class="btn btn-secondary" (click)="addIngredient()">Add Ingredient</button>
+        </p>
+        <div class="row" id="groupList">
+
+          <div *ngFor="let ingredient of ingredients; let i = index" class="row">
+            <div class="col-2">
+              <input type="text" id="qty"
+              class="form-control"
+              size="3"
+              max="20"
+              name="qty"
+              [ngModel]="ingredient?.qty"
+              placeholder="Qty"
+              >
+            </div>
+            <div class="col-2">
+                <input type="text" id="uom"
+                class="form-control"
+                size="3"
+                max="20"
+                name="uom"
+                [ngModel]="ingredient?.uom"
+                placeholder="Unit"
+                >
+              </div>
+            <div class="col-6">
+                <input type="text" id="name"
+                class="form-control"
+                size="3"
+                max="20"
+                name="name"
+                [ngModel]="ingredient?.name"
+                placeholder="Ingredient name"
+                >
+            </div>
+            <div class="col-2">
+                <button class="btn btn-danger" (click)="onRemoveItem(i)">X</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row alert alert-danger" *ngIf="(name.invalid && name.touched) || (prep_time.invalid && prep_time.touched)">
+        The Name and Prep time fields are required.
+    </div>
+    <div class="row">
+      <div class="col-xs-12 pt-5">
+        <p>
+            <button class="btn btn-success" type="submit" [disabled]="f.invalid">Save</button>&nbsp;
+            <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
+        </p>
+      </div>
+    </div>
+
+  </form>
+
+<!-- <a href="" routerLink="/recipes" class="btn btn-secondary">Back To list</a> -->

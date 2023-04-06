@@ -1,0 +1,9 @@
+<h1>Recipes</h1>
+<p>Browse trough the different recpies and  or use the filters to find today's delight.</p>
+<router-outlet></router-outlet>
+<div class="row" [ngClass]="{ hidden: editMode }">
+    <div class="col-md-12">
+        <cb-recipe-list></cb-recipe-list>
+    </div>
+</div>
+

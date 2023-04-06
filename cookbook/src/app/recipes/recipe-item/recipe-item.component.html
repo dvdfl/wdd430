@@ -1,0 +1,25 @@
+<!-- <div [ngSwitch]="showList">
+    <div *ngSwitchCase="'grid'">{{recipe?.name}} (grid)</div>
+    <div *ngSwitchDefault> -->
+        <div class="row recipe-row">
+            <div class="col-md-8">
+                <h2><a  [routerLink]="['/recipes/'+ recipe.id]">{{recipe?.name}}</a></h2>
+                <p>{{recipe?.description}}</p>
+            </div>
+            <div class="col-md-4">
+                <p class="prop1">
+                    <span class="fw-bold">Preparation time: </span>
+                    {{recipe?.prep_time}} min.
+                </p>
+                <p class="prop2">
+                    <span class="fw-bold">Total prep time: </span>
+                    {{recipe?.total_time}} min.
+                </p>
+                <p class="prop3">
+                    <span class="fw-bold">Servings: </span>
+                    {{recipe?.servings}}
+                </p>
+            </div>
+        </div>
+    <!-- </div>
+</div> -->

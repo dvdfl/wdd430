@@ -1,0 +1,35 @@
+<hr>
+<div class="row">
+    <div class="col-md-8">
+
+        <h2>{{recipe.name}}</h2>
+        <p>{{recipe.description}}</p>
+        <h3>Ingredients</h3>
+        <ul>
+            <li *ngFor="let ingredient of recipe.ingredients">{{ingredient.qty}} {{ingredient.uom}} - {{ingredient.name}}</li>
+        </ul>
+        <h3>Preparation</h3>
+        <ul>
+            <li *ngFor="let step of recipe.prep_steps">{{step.step}} - {{step.description}}</li>
+        </ul>
+    </div>
+    <div class="col-md-4 bg-light p-3">
+        <p class="prop1">
+            <span class="fw-bold">Preparation time: </span>
+            {{recipe?.prep_time}} min.
+        </p>
+        <p class="prop2">
+            <span class="fw-bold">Total prep time: </span>
+            {{recipe?.total_time}} min.
+        </p>
+        <p class="prop3">
+            <span class="fw-bold">Servings: </span>
+            {{recipe?.servings}}
+        </p>
+        <p class="prop3">
+            <span class="fw-bold">Meal Type: </span>
+            {{recipe?.meal_type}}
+        </p>
+    </div>
+</div>
+<a href="" routerLink="/recipes" class="btn btn-secondary">Back To list</a>

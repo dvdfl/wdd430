@@ -1,0 +1,22 @@
+<nav class="navbar navbar-light bg-light mb-5">
+    <div class="container-fluid">
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" #searchBox (keyup)="search(searchBox.value)">
+            <button class="btn btn-outline-success" type="submit" (click)="search(searchBox.value)">Search</button>
+        </form>
+        <div class="text-end"><a routerLink="new" class="btn btn-secondary">Add New</a></div>
+        <!-- <div class="text-end btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-dark">grid</button>
+            <button type="button" class="btn btn-dark">Middle</button>
+            <button type="button" class="btn btn-dark">list</button>
+        </div> -->
+
+    </div>
+</nav>
+<section>
+    <div class="row">
+        <div class="col-12" *ngFor="let r of recipes|recipesFilter:term">
+            <cb-recipe-item [recipe]="r"></cb-recipe-item>
+        </div>
+    </div>
+</section>
